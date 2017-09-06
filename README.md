@@ -1,4 +1,13 @@
-# Facebook's React TicTacToe tutorial starter code
+# Week 2 In-class projects
+
+## Project 1: BuildWithReact.com tutorial
+
+In class we will go over this tutorial together.
+
+[http://buildwithreact.com/tutorial](http://buildwithreact.com/tutorial) 
+
+
+## Project 2: Facebook's React TicTacToe tutorial starter code
 
 This repository contains the starter code for Facebook's React TicTacToe tutorial found here: [https://facebook.github.io/react/tutorial/tutorial.html](https://facebook.github.io/react/tutorial/tutorial.html)
 
