@@ -15,3 +15,5 @@ Using this repo will allow you to build the tutorial and save your code locally 
 Leave the `npm start` dev server running in the background, besides launching a dev server for react, it auto-compiles your react code changes, and it opens up your browser and auto-refreshes it anytime you make code changes.
 
 Now open up the project code in your text editor and follow the tutorial, saving your changes as you go along.
+
+> NOTE: You only need to edit the code in `./src/TicTacToe/index.js` for the tutorial.
