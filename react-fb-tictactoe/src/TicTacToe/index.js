@@ -76,6 +76,15 @@ class Game extends Component {
     const current = history[history.length - 1];
     const winner = calculateWinner(current.squares);
 
+    const moves = history.map((step, move) => {
+      const desc = move ? 'Move #' + move : 'Game Start';
+      return (
+        <li>
+          <a href="#" onClick={() => this.jumpTo(move)}>{desc}</a>
+        </li>
+      );
+    });
+
     let status;
     if(winner) {
       status = 'Winner: ' + winner;
@@ -85,7 +94,7 @@ class Game extends Component {
 
     return (
       <div>
-        <h3>Tutorial Step: Storing a history</h3>
+        <h3>Tutorial Step: Showing the moves</h3>
         <div className="game">
           <div className="game-board">
             <Board
@@ -95,7 +104,7 @@ class Game extends Component {
           </div>
           <div className="game-info">
             <div>{status}</div>
-            <ol>{/* todo */}</ol>
+            <ol>{moves}</ol>
           </div>
         </div>
       </div>
