@@ -2,21 +2,13 @@ import React, { Component } from 'react';
 import './TicTacToe.css'
 
 
-/*
- * Changes from original tutorial
- *  - Here we import Component, so we can replace
- *    class Square extends React.Component
- *    with
- *    class Square extends Component
- */
-class Square extends Component {
-  render() {
-    return (
-      <button className="square" onClick={() => this.props.onClick()}>
-        {this.props.value}
-      </button>
-    );
-  }
+// Change to a functional component 
+const Square = (props) => {
+  return (
+    <button className="square" onClick={props.onClick}>
+      {props.value} 
+    </button>
+  );
 }
 
 class Board extends Component {
@@ -24,13 +16,17 @@ class Board extends Component {
     super();
     this.state = {
       squares: Array(9).fill(null),
+      xIsNext: true,
     };
   }
 
   handleClick(i) {
     const squares = this.state.squares.slice();
-    squares[i] = 'X';
-    this.setState({squares: squares});
+    squares[i] = this.state.xIsNext ? 'X' : 'O';
+    this.setState({
+      squares: squares,
+      xIsNext: !this.state.xIsNext,
+    });
   }
 
   renderSquare(i) {
@@ -43,7 +39,7 @@ class Board extends Component {
   }
 
   render() {
-    const status = 'Next player: X';
+    const status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
 
     return (
       <div>
@@ -72,7 +68,7 @@ class Game extends Component {
   render() {
     return (
       <div>
-        <h3>Tutorial Step: Lifting State up</h3>
+        <h3>Tutorial Step: Taking turns</h3>
         <div className="game">
           <div className="game-board">
             <Board />
