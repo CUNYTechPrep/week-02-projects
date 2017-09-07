@@ -10,10 +10,17 @@ import './TicTacToe.css'
  *    class Square extends Component
  */
 class Square extends Component {
+  constructor() {
+    super();
+    this.state = {
+      value: null,
+    };
+  }
+
   render() {
     return (
-      <button className="square">
-        {this.props.value}
+      <button className="square" onClick={() => this.setState({value: 'X'})}>
+        {this.state.value}
       </button>
     );
   }
@@ -54,7 +61,7 @@ class Game extends Component {
   render() {
     return (
       <div>
-        <h3>Tutorial Step: Passing data through props</h3>
+        <h3>Tutorial Step: An interactive component</h3>
         <div className="game">
           <div className="game-board">
             <Board />
