@@ -84,23 +84,27 @@ class Game extends Component {
   render() {
     const history = this.state.history;
     const current = history[this.state.stepNumber];
-    const winner = calculateWinner(current.squares);
+    const [winner, winLine] = calculateWinner(current.squares);    // ES6 Destructuring 
+    
+    //Moves List
     const moves = history.map((step, move) => {
-      const desc = move ?
-        'Move #' + move :
-        'Game start';
-      return (
-        <li key={move}>
-          <a href="#" onClick={() => this.jumpTo(move)}>{desc}</a>
-        </li>
-      );
+        const desc = move ?
+            'Move #' + move :
+            'Game start';
+        return (
+            <li key={move}>
+                <a href="#" onClick={ () => this.jumpTo(move) }>                {/* A JSX comment */}
+                    { move == this.state.stepNumber ? <b>{desc}</b> : desc }    {/* Make the current move bold */}
+                </a>
+            </li>
+        );
     });
 
     let status;
     if (winner) {
-      status = 'Winner: ' + winner;
+        status = 'Winner: ' + winner;
     } else {
-      status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
+        status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
     }
 
     return (
@@ -123,21 +127,26 @@ class Game extends Component {
 export default Game;
 
 function calculateWinner(squares) {
-  const lines = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6],
-  ];
-  for (let i = 0; i < lines.length; i++) {
-    const [a, b, c] = lines[i];
-    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return squares[a];
+    //Combinations of winning moves
+    const lines = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [2, 4, 6],
+    ];
+    for (let i = 0; i < lines.length; i++) {
+        const [a, b, c] = lines[i];
+        if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) 
+        {
+            return {
+                winner: squares[a],     // X or O char
+                winLine: lines[i]       // Line to highlight
+            }
+        }
     }
-  }
-  return null;
+    return null;
 }
