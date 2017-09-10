@@ -8,4 +8,6 @@
 //export CounterButton from './CounterButton/CounterButton';
 //export GithubButton from './GithubButton/GithubButton';
 //export SurveyForm from './SurveyForm/SurveyForm';
+export Square from './Square/Square';
+export Board from './Board/Board';
 

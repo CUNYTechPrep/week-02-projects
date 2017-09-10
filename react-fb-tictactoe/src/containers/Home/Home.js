@@ -11,7 +11,7 @@ export default class Home extends Component {
 
     return (
       <div>
-       WE MADE IT
+        ReactRedux Application using a boiler template.
       </div>
     );
   }

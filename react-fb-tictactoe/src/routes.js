@@ -8,6 +8,7 @@ import {
     Login,
     LoginSuccess,
     NotFound,
+    Game,
   } from 'containers';
 
 export default (store) => {
@@ -39,6 +40,7 @@ export default (store) => {
       { /* Routes */ }  
       <Route path="about" component={About}/>
       <Route path="login" component={Login}/>
+      <Route path="tictactoe" component={Game}/>
 
       { /* Routes requiring login */ }
       <Route onEnter={requireLogin}>

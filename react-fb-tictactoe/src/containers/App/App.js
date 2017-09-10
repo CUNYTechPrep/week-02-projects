@@ -7,7 +7,6 @@ import Nav from 'react-bootstrap/lib/Nav';
 import NavItem from 'react-bootstrap/lib/NavItem';
 import Helmet from 'react-helmet';
 import renderHTML from 'react-render-html';
-import { isLoaded as isInfoLoaded, load as loadInfo } from 'redux/modules/info';
 import { isLoaded as isAuthLoaded, load as loadAuth, logout } from 'redux/modules/auth';
 import { push } from 'react-router-redux';
 import config from '../../config';
@@ -20,12 +19,9 @@ import '../../helpers/app.css';
 @asyncConnect([{
   promise: ({store: {dispatch, getState}}) => {
     const promises = [];
-    if (!isInfoLoaded(getState())) {
-      promises.push(dispatch(loadInfo()));
-    }
-    if (!isAuthLoaded(getState())) {
-      promises.push(dispatch(loadAuth()));
-    }
+    // if (!isAuthLoaded(getState())) {
+    //   promises.push(dispatch(loadAuth()));
+    // }
     return Promise.all(promises);
   }
 }])
@@ -58,7 +54,7 @@ export default class App extends Component {
   };
 
   render() {
-    console.log("\n\nIn render APP.JS props\n\n", this.props);
+    console.log("\n\n==> APP.JS props\n\n", this.props);
     const {user} = this.props;
     const styles = require('./App.scss');
 
@@ -78,8 +74,12 @@ export default class App extends Component {
           
           <Navbar.Collapse>
             <Nav>
-              <LinkContainer to="/myapp/home">
+              <LinkContainer to="/myapp">
                 <NavItem eventKey={17}>Home</NavItem>
+              </LinkContainer>
+                            
+              <LinkContainer to="/myapp/tictactoe">
+                <NavItem eventKey={77}>Tictactoe</NavItem>
               </LinkContainer>
 
               <LinkContainer to="/myapp/about">
@@ -94,9 +94,11 @@ export default class App extends Component {
           {this.props.children}
         </div>
         
+        {/* FOOTER CONTENT HERE
         <div className='well text-center'>
-          FOOTER
         </div>
+        */}
+        
       
       </div>
     );
