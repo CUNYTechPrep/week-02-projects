@@ -1,45 +1,56 @@
 import React, { Component } from 'react';
 import './TicTacToe.css'
 
+//Component Function
 function Square(props) {
-  return (
-    <button className="square" onClick={props.onClick}>
-      {props.value}
-    </button>
-  );
+    let style = {color: 'black'};
+    if (props.highlight === true) {
+        style.color = 'red';
+    }
+    return (
+        <button className="square" onClick={props.onClick} style={props.highlight ? style : null}>
+            {props.value}
+        </button>
+    );
 }
 
 class Board extends Component {
-  renderSquare(i) {
-    return (
-      <Square 
-        value={this.props.squares[i]}
-        onClick={() => this.props.onClick(i)}
-      />
-    );
-  }
+    renderSquare(i) {
+        let highlight = false;
+        if (this.props.winLine !== undefined && this.props.winLine.includes(i))
+        {
+            highlight = true;
+        }
+        return (
+            <Square
+                value={this.props.squares[i]}
+                onClick={() => this.props.onClick(i)}
+                highlight={highlight}
+            />
+        );
+    }
 
-  render() {
-    return (
-      <div>
-        <div className="board-row">
-          {this.renderSquare(0)}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
+    render() {
+        return (
+        <div>
+            <div className="board-row">
+            {this.renderSquare(0)}
+            {this.renderSquare(1)}
+            {this.renderSquare(2)}
+            </div>
+            <div className="board-row">
+            {this.renderSquare(3)}
+            {this.renderSquare(4)}
+            {this.renderSquare(5)}
+            </div>
+            <div className="board-row">
+            {this.renderSquare(6)}
+            {this.renderSquare(7)}
+            {this.renderSquare(8)}
+            </div>
         </div>
-        <div className="board-row">
-          {this.renderSquare(3)}
-          {this.renderSquare(4)}
-          {this.renderSquare(5)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
-          {this.renderSquare(8)}
-        </div>
-      </div>
-    );
-  }
+        );
+    }
 }
 
 class Game extends Component {
@@ -61,7 +72,7 @@ class Game extends Component {
     const current = history[history.length - 1];
     const squares = current.squares.slice();
 
-    if (calculateWinner(squares) || squares[i]) {
+    if (calculateWinner(squares).winner!==null || squares[i]) {
       return;
     }
     squares[i] = this.state.xIsNext ? 'X' : 'O';
@@ -84,8 +95,16 @@ class Game extends Component {
   render() {
     const history = this.state.history;
     const current = history[this.state.stepNumber];
-    const [winner, winLine] = calculateWinner(current.squares);    // ES6 Destructuring 
-    
+    const {winner, winLine} = calculateWinner(current.squares);    // ES6 Destructuring 
+
+    let status;
+    if (winner) {
+        console.log("There's a winner.")
+        status = 'Winner: ' + winner;
+    } else {
+        console.log("No winner.")
+        status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
+    }
     //Moves List
     const moves = history.map((step, move) => {
         const desc = move ?
@@ -94,23 +113,17 @@ class Game extends Component {
         return (
             <li key={move}>
                 <a href="#" onClick={ () => this.jumpTo(move) }>                {/* A JSX comment */}
-                    { move == this.state.stepNumber ? <b>{desc}</b> : desc }    {/* Make the current move bold */}
+                    { move === this.state.stepNumber ? <b>{desc}</b> : desc }    {/* Make the current move bold */}
                 </a>
             </li>
         );
     });
 
-    let status;
-    if (winner) {
-        status = 'Winner: ' + winner;
-    } else {
-        status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
-    }
-
     return (
       <div className="game">
         <div className="game-board">
-          <Board 
+          <Board
+            winLine = {winLine}
             squares={current.squares}
             onClick={(i) => this.handleClick(i)}
           />
@@ -148,5 +161,8 @@ function calculateWinner(squares) {
             }
         }
     }
-    return null;
+    return {
+        winner: null,     // X or O char
+        winLine: undefined,
+    }
 }
