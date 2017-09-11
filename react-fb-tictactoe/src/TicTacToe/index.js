@@ -9,14 +9,12 @@ import './TicTacToe.css'
  *    with
  *    class Square extends Component
  */
-class Square extends Component {
-  render() {
-    return (
-      <button className="square" onClick={()=>this.props.onClick()}>
-        {this.props.value}
-      </button>
-    );
-  }
+function Square(props) {
+  return (
+    <button className="square" onClick={props.onClick}>
+      {props.value}
+    </button>
+  );
 }
 
 class Board extends React.Component {
@@ -24,13 +22,20 @@ class Board extends React.Component {
     super();
     this.state = {
       squares: Array(9).fill(null),                     //Fill array of 9 with null, rep the 9 squares
+      xIsNext: true,
     }
   }
 
   handleClick(i) {
-    const squares = this.state.squares.slice();         //copy the squares array  
-    squares[i] = 'X';                                   //indexed square value is 'X'   
-    this.setState({squares: squares});                  //set current state of the array of squares
+    const squares = this.state.squares.slice();         //copy the squares array
+    if(calculateWinner(squares) || squares[i]) {        //Ignore click if someone has already won the game
+      return ;
+    }  
+    squares[i] = this.state.xIsNext ? 'X' : 'O';        //set state depending on if it's X's turn or not 
+    this.setState({
+      squares: squares,                                 //set current state of the array of squares
+      xIsNext: !this.state.xIsNext,                     //Flip the turn
+    });                  
   }
 
   renderSquare(i) {
@@ -40,7 +45,13 @@ class Board extends React.Component {
   }
 
   render() {
-    const status = 'Next player: X';
+    const winner = calculateWinner(this.state.squares);
+    let status;
+    if(winner) {
+      status = 'Winner: ' + winner;
+    } else {
+      status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
+    }
 
     return (
       <div>
@@ -82,3 +93,24 @@ class Game extends Component {
 }
 
 export default Game;
+
+//Helper function to check if anyone has won the game
+function calculateWinner(squares) {
+  const lines = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ];
+  for (let i = 0; i < lines.length; i++) {
+    const [a, b, c] = lines[i];
+    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+      return squares[a];
+    }
+  }
+  return null;
+}
