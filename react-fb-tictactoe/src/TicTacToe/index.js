@@ -12,16 +12,31 @@ import './TicTacToe.css'
 class Square extends Component {
   render() {
     return (
-      <button className="square">
-        {/* TODO */}
+      <button className="square" onClick={()=>this.props.onClick()}>
+        {this.props.value}
       </button>
     );
   }
 }
 
-class Board extends Component {
+class Board extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      squares: Array(9).fill(null),                     //Fill array of 9 with null, rep the 9 squares
+    }
+  }
+
+  handleClick(i) {
+    const squares = this.state.squares.slice();         //copy the squares array  
+    squares[i] = 'X';                                   //indexed square value is 'X'   
+    this.setState({squares: squares});                  //set current state of the array of squares
+  }
+
   renderSquare(i) {
-    return <Square />;
+    return <Square 
+              value={this.state.squares[i]}             //param: value of square
+              onClick={() => this.handleClick(i)}/>;    //param: onClick's handler
   }
 
   render() {
