@@ -108,7 +108,6 @@ class Game extends React.Component {
 		});
 		this.state.ai = !this.state.AIswitch ? new AI() : null;
 	}
-
   	render() {
     	const history = this.state.history;
     	const current = history[this.state.stepNumber];
@@ -122,13 +121,17 @@ class Game extends React.Component {
         		</li>
       		);
     	});
-
+		let temp = current.squares.slice();
+		temp = temp.filter(s => s != "O" && s != "X");
     	let status;
     	if (winner) {
       		status = "Winner: " + winner;
-    	} else if(!this.state.AIswitch) {
+    	} else if(temp.length == 1) {
+      		status = "Game is a Draw ";
+		}
+		else if(!this.state.AIswitch) {
       		status = "Next player: " + (this.state.xIsNext ? "X" : "O");
-    	}
+		}
 			
     	return (
 		<div>
