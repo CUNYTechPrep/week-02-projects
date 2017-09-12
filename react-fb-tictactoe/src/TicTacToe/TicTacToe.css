@@ -1,6 +1,15 @@
 .game {
   font: 14px "Century Gothic", Futura, sans-serif;
-  margin: 20px;
+  margin: auto;
+  padding: 5%; 
+  display: flex;
+  flex-direction: row;
+ }
+
+.game-board {
+    margin:0 auto;   
+	margin-left:auto; 
+	margin-right:0;
 }
 
 .game>ol, .game>ul {
@@ -21,15 +30,15 @@
   background: #fff;
   border: 1px solid #999;
   float: left;
-  font-size: 24px;
+  font-size: 100px;
   font-weight: bold;
   line-height: 34px;
-  height: 34px;
   margin-right: -1px;
   margin-top: -1px;
   padding: 0;
   text-align: center;
-  width: 34px;
+  height: 200px;
+  width: 200px;
 }
 
 .square:focus {
@@ -40,11 +49,113 @@
   background: #ddd;
 }
 
-.game {
-  display: flex;
-  flex-direction: row;
+.game-info {
+	position: relative;
+    margin:0 auto; 
 }
 
-.game-info {
-  margin-left: 20px;
+.game-info-text {
+	margin-left:auto; 
+	margin-right:0;
+	text-align: center;
+  	font-size: 30px;
+    font-family: "Lucida Console", Monaco, monospace;
+
 }
+
+.AI {
+    font-family: "Lucida Console", Monaco, monospace;
+}
+
+.switch-container {
+	position: relative;
+	top: 50%; left: 50%;
+	-webkit-transform: translate3d( -50%, -50%, 0 );
+	transform: translate3d( -50%, -50%, 0 );
+}
+
+input[type="checkbox"].switch  {
+	position: absolute;
+	opacity: 0;
+}
+
+input[type="checkbox"].switch + div {
+	vertical-align: middle;
+	width: 40px;
+	height: 20px;
+	border-radius: 999px;
+	background-color: #00B0F2;
+	-webkit-transition-duration: .4s;
+	transition-duration: .4s;
+	-webkit-transition-property: background-color, box-shadow;
+	transition-property: background-color, box-shadow;
+	cursor: pointer;
+}
+
+input[type="checkbox"].switch + div span {
+	position: absolute;
+    font-size: 1.6rem;
+    color: white;
+    margin-top: 12px;
+}
+
+input[type="checkbox"].switch + div span:nth-child( 1 ) {
+    margin-left: 15px;
+}
+
+input[type="checkbox"].switch + div span:nth-child( 2 ) {
+    margin-left: 55px;
+}
+
+input[type="checkbox"].switch:checked + div {
+	width: 94px;
+	background-position: 0 0;
+	background-color: #3b89ec;
+}
+
+input[type="checkbox"].switch + div {
+	width: 94px;
+	height: 48px;
+}
+
+
+input[type="checkbox"].switch:checked + div {
+	background-color: #57BB00;
+}
+
+input[type="checkbox"].switch + div > div {
+	float: left;
+	width: 46px; height: 46px;
+	border-radius: inherit;
+	background: #ffffff;
+	-webkit-transition-timing-function: cubic-bezier(1,0,0,1);
+	transition-timing-function: cubic-bezier(1,0,0,1);
+	-webkit-transition-duration: 0.4s;
+	transition-duration: 0.4s;
+	-webkit-transition-property: transform, background-color;
+	transition-property: transform, background-color;
+	pointer-events: none;
+	margin-top: 1px;
+	margin-left: 1px;
+}
+
+input[type="checkbox"].switch:checked + div > div {
+	-webkit-transform: translate3d(20px, 0, 0);
+	transform: translate3d(20px, 0, 0);
+	background-color: #ffffff;
+}
+
+input[type="checkbox"].bigswitch.switch + div > div {
+	width: 44px;
+	height: 44px;
+	margin-top: 1px;
+}
+
+
+input[type="checkbox"].switch:checked + div > div {
+	-webkit-transform: translate3d(46px, 0, 0);
+	transform: translate3d(46px, 0, 0);
+}
+
+
+
