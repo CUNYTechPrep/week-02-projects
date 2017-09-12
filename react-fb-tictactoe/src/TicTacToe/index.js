@@ -13,7 +13,7 @@ class Square extends Component {
   render() {
     return (
       <button className="square">
-        {/* TODO */}
+        {this.props.value}
       </button>
     );
   }
@@ -21,7 +21,7 @@ class Square extends Component {
 
 class Board extends Component {
   renderSquare(i) {
-    return <Square />;
+    return <Square value={i} />;
   }
 
   render() {
