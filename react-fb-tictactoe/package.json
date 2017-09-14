@@ -12,10 +12,5 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
-  },
-  "devDependencies": {
-    "babel-eslint": "^8.0.0",
-    "eslint-config-airbnb": "^15.1.0",
-    "eslint-plugin-react": "^7.3.0"
   }
 }
