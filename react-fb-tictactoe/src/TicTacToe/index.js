@@ -3,7 +3,7 @@ import './TicTacToe.css'
 
 /*
  * Changes from original tutorial
- *  - Here we import Component, so we can replace
+ *    Here we import Component, so we can replace
  *    class Square extends React.Component
  *    with
  *    class Square extends Component
@@ -18,13 +18,6 @@ function Square(props) {
 }
 
 class Board extends Component {
-  constructor() {
-    super();
-    this.state = {
-      squares: Array(9).fill(null),
-      xIsNext: true,
-    };
-  }
 
   handleClick(i) {
     const squares = this.state.squares.slice();
@@ -41,8 +34,8 @@ class Board extends Component {
   renderSquare(i) {
     return (
       <Square
-        value={this.state.squares[i]}
-        onClick={() => this.handleClick(i)}
+        value={this.props.squares[i]}
+        onClick={() => this.props.onClick(i)}
       />
     );
   }
@@ -80,15 +73,39 @@ class Board extends Component {
 }
 
 class Game extends Component {
-  render() {
+  constructor() {
+    super();
+    this.state = {
+      history: [{
+        squares: Array(9).fill(null),
+      }],
+      xIsNext: true,
+    };
+  }
+
+render() {
+    const history = this.state.history;
+    const current = history[history.length - 1];
+    const winner = calculateWinner(current.squares);
+
+    let status;
+    if (winner) {
+      status = 'Winner: ' + winner;
+    } else {
+      status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
+    }
+
     return (
       <div className="game">
         <div className="game-board">
-          <Board />
+          <Board
+            squares={current.squares}
+            onClick={(i) => this.handleClick(i)}
+          />
         </div>
         <div className="game-info">
-          <div>{/* status */}</div>
-          <ol>{/* todo */}</ol>
+          <div>{status}</div>
+          <ol>{/* TODO */}</ol>
         </div>
       </div>
     );

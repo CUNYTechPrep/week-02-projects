@@ -4,7 +4,7 @@ In the square class definition, under the render function, why is it that button
 why isn't there a paragraph box or text box surrounding {this.state.value}? If that's where the "X" is supposed to appea -- actually nevermind, from w3schools it says that the correct syntax for a button is something like this:
  <button type="button">Click Me!</button> 
 
- the type attribute in the above exmple is a to indicate to the browser what type of button it is.
+the type attribute in the above exmple is a to indicate to the browser what type of button it is.
 
 why do you need to define render square twice--once in the square class and another time in the board component?
 
