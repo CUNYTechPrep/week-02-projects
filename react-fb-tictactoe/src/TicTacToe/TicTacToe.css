@@ -48,3 +48,8 @@
 .game-info {
   margin-left: 20px;
 }
+
+
+.current-move {
+  font-weight: bold;
+}

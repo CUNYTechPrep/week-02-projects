@@ -101,8 +101,9 @@ class Game extends Component {
       const desc = move ?
         'Move #' + getCoordinates(step.index) :
         'Game start';
+      const currentMoveClass = step == current ? 'current-move' : null;
       return (
-        <li key={move}>
+        <li key={move} className={currentMoveClass}>
           <a href="#" onClick={() => this.jumpTo(move)}>{desc}</a>
         </li>
       );
