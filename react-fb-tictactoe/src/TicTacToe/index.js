@@ -59,6 +59,7 @@ class Game extends Component {
     this.state = {
       history: [{
         squares: Array(9).fill(null),
+        index: null,
       }],
       stepNumber: 0,
       xIsNext: true,
@@ -76,6 +77,7 @@ class Game extends Component {
     this.setState({
       history: history.concat([{
         squares: squares,
+        index: i,
       }]),
       stepNumber: history.length,
       xIsNext: !this.state.xIsNext,
@@ -97,7 +99,7 @@ class Game extends Component {
 
     const moves = history.map((step, move) => {
       const desc = move ?
-        'Move #' + move :
+        'Move #' + getCoordinates(step.index) :
         'Game start';
       return (
         <li key={move}>
@@ -133,6 +135,12 @@ class Game extends Component {
 
 export default Game;
 
+
+function getCoordinates(index) {
+  let x = index % 3;
+  let y = Math.floor(index / 3);
+  return `(${x}, ${y})`;
+}
 
 
 function calculateWinner(squares) {
