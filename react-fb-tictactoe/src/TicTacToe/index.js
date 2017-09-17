@@ -53,6 +53,7 @@ class Game extends Component {
       }],
       stepNumber: 0,
       xIsNext: true,
+      reversedOrder: false,
     };
   }
 
@@ -74,6 +75,12 @@ class Game extends Component {
     });
   }
 
+  handleSort() {
+    this.setState({
+      reversedOrder: !this.state.reversedOrder,
+    })
+  }
+
 
   jumpTo(step) {
     this.setState({
@@ -87,9 +94,11 @@ class Game extends Component {
     const current = history[this.state.stepNumber];
     const winner = calculateWinner(current.squares);
 
+    
+
     const moves = history.map((step, move) => {
       const desc = move ?
-        'Move #' + getCoordinates(step.index) :
+        move + '. Move ' + getCoordinates(step.index) :
         'Game start';
       const currentMoveClass = step == current ? 'current-move' : null;
       return (
@@ -117,7 +126,10 @@ class Game extends Component {
         </div>
         <div className="game-info">
           <div>{status}</div>
-          <ol>{moves}</ol>
+          <ul>
+            {this.state.reversedOrder ? moves.reverse() : moves}
+          </ul>
+          <button onClick={() => this.handleSort()}>Sort moves</button>
         </div>
       </div>
     );
