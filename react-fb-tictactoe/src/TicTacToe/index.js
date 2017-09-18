@@ -10,8 +10,12 @@ import './TicTacToe.css'
  *    class Square extends Component
  */
 function Square(props) {
+  let btnClass = 'square';
+  if(props.highlight) {
+    btnClass += ' win';
+  }
   return (
-    <button className="square" onClick={props.onClick}>
+    <button className={btnClass} onClick={props.onClick}>
       {props.value}
     </button>
   );
@@ -21,10 +25,12 @@ function Square(props) {
 class Board extends React.Component {
 
   renderSquare(i) {
+    const highlight = this.props.winner && this.props.winner.includes(i);
     return (
       <Square
         value={this.props.squares[i]}
         onClick={() => this.props.onClick(i)}
+        highlight={highlight}
       />
     );
   }
@@ -94,7 +100,6 @@ class Game extends Component {
     const current = history[this.state.stepNumber];
     const winner = calculateWinner(current.squares);
 
-    
 
     const moves = history.map((step, move) => {
       const desc = move ?
@@ -111,7 +116,7 @@ class Game extends Component {
     
     let status;
     if (winner) {
-      status = 'Winner: ' + winner;
+      status = 'Winner: ' + current.squares[winner[0]];
     } else {
       status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
     }
@@ -122,6 +127,7 @@ class Game extends Component {
           <Board
             squares={current.squares}
             onClick={(i) => this.handleClick(i)}
+            winner={winner}
           />
         </div>
         <div className="game-info">
@@ -160,7 +166,7 @@ function calculateWinner(squares) {
   for (let i = 0; i < lines.length; i++) {
     const [a, b, c] = lines[i];
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return squares[a];
+      return lines[i];
     }
   }
   return null;

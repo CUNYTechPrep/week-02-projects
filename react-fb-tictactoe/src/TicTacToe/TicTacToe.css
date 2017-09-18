@@ -54,6 +54,11 @@
   font-weight: bold;
 }
 
+
 ul {
   list-style: none;
+}
+
+.win {
+  background-color: PaleGreen;
 }
