@@ -48,3 +48,17 @@
 .game-info {
   margin-left: 20px;
 }
+
+
+.current-move {
+  font-weight: bold;
+}
+
+
+ul {
+  list-style: none;
+}
+
+.win {
+  background-color: PaleGreen;
+}
