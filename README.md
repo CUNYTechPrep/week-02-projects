@@ -4,7 +4,10 @@
 
 In class we will go over this tutorial together.
 
-[http://buildwithreact.com/tutorial](http://buildwithreact.com/tutorial) 
+[http://buildwithreact.com/tutorial](http://buildwithreact.com/tutorial)
+
+The tutorial is written in an ES5 style. But you can use this gist to see updated ES6 style code:
+https://gist.github.com/medgardo/bc8d9bb88de492e0a8330a5e311105fe
 
 
 ## Project 2: Facebook's React TicTacToe tutorial starter code
