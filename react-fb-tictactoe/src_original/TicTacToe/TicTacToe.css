@@ -1,9 +1,9 @@
-body {
+.game {
   font: 14px "Century Gothic", Futura, sans-serif;
   margin: 20px;
 }
 
-ol, ul {
+.game>ol, .game>ul {
   padding-left: 30px;
 }
 
