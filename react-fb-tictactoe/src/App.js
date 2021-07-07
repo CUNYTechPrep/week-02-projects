@@ -20,7 +20,7 @@ class App extends Component {
           <h2>Welcome to React</h2>
         </div>
         <div>
-          <TicTacToe />
+          <TicTacToe/>
         </div>
       </div>
     );
